@@ -10,6 +10,12 @@ describe("Thermostat", function(){
     it('should be initialized at 20 degrees', () => {
       expect(thermostat.default_temp).toEqual(20)
     })
+    it('should be initialized with power_save on', () => {
+      expect(thermostat.power_save).toEqual(true)
+    })
+    // it('should be initialized with power_save on', () => {
+    //   expect(thermostat.power_save).toEqual(true)
+    // })
   });
 
   describe('#up', () => {
@@ -31,6 +37,10 @@ describe("Thermostat", function(){
     it('should turn up the temperature by 5', () => {
       thermostat.up(5)
       expect(thermostat.current_temp).toEqual(25)
+    });
+    it('should not turn up the temperature up to 26 degrees if power_mode is on', () => {
+      thermostat.power_save = true
+      expect(function () { thermostat.up(6) }).toThrow(new TypeError("Temperature cannot be more than 25 degrees."));
     });
 
   });
@@ -60,6 +70,20 @@ describe("Thermostat", function(){
         thermostat.current_temp = thermostat.min_temp
         expect(function () { thermostat.down(1) }).toThrow(new TypeError("Temperature cannot be lower than 10 degrees."));
       });
+  });
+
+  describe("#power_mode", () => {
+    it("should change the power mode if it is true", () => {
+      thermostat.power_mode()
+      expect(thermostat.power_save).toEqual(false)
+
+    });
+    it("should change the power mode if it is false", () => {
+      thermostat.power_save = false
+      thermostat.power_mode()
+      expect(thermostat.power_save).toEqual(true)
+
+    });
   });
   
 });
