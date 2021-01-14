@@ -4,22 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thermostat App</title>
-  <script src="Thermostat.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="container">
-    <div class="temp-display">
-      18
+    <div class="display">
+      <p></p>
+      <div class="temp-display">
+        27°
+      </div>
+      <div class="energy-display">
+        High
+      </div> 
     </div>
-    <div class="energy-display">
-      Low
-    </div> 
     <div class="controls">
-      <button class="turn-up">Turn Up</button> 
+      <h3 class="logo">Thermus</h3>
+      <input class="temp-adj" type="text" maxlength="2">
+      <p></p>
+      <button class="turn-up">Turn Up</button>
+      <p>
       <button class="turn-down">Turn Down</button>
+      <p>
       <button class="power-save-toggle">Power Save Mode</button>
     </div>
   </div>  
 </body>
+<script src="Thermostat.js"></script>
 </html>
