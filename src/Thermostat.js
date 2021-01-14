@@ -4,17 +4,27 @@ class Thermostat {
     this.default_temp = 20;
     this.current_temp = this.default_temp
     this.min_temp = 10;
-    this.power_save_max = 25;
+    this.max_temp = 32;
+    this.power_save_max_temp = 25;
     this.power_save = true;
-  
   }
 
   up(amount) {
-    let power_save_max_temp = "Temperature cannot be more than 25 degrees."
-    if ((this.current_temp + amount > this.power_save_max)) {
-      throw new TypeError(power_save_max_temp)
+    let max_temp_error = "Temperature cannot be higher than 32 degrees if power saving mode is off."
+    let power_save_max_temp_error = "Temperature cannot be higher than 25 degrees if power saving mode is on."
+    
+    if (this.power_save == true) {
+      if ((this.current_temp + amount > this.power_save_max_temp)) {
+        throw new TypeError(power_save_max_temp_error)
+      } else {
+      this.current_temp += amount
+      }
     } else {
-    this.current_temp += amount
+      if ((this.current_temp + amount > this.max_temp)) {
+        throw new TypeError(max_temp_error)
+      } else {
+        this.current_temp += amount
+      }
     }
   }
 

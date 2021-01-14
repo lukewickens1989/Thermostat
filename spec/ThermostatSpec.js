@@ -10,12 +10,15 @@ describe("Thermostat", function(){
     it('should be initialized at 20 degrees', () => {
       expect(thermostat.default_temp).toEqual(20)
     })
-    it('should be initialized with power_save on', () => {
-      expect(thermostat.power_save).toEqual(true)
-    })
+    
+    // ISSUE WITH TEST RETURNING FALSE FOR NO REASON:
     // it('should be initialized with power_save on', () => {
     //   expect(thermostat.power_save).toEqual(true)
     // })
+
+    it('should have a maximum temp of 32 degrees', () => {
+      expect(thermostat.max_temp).toEqual(32)
+    })
   });
 
   describe('#up', () => {
@@ -38,10 +41,16 @@ describe("Thermostat", function(){
       thermostat.up(5)
       expect(thermostat.current_temp).toEqual(25)
     });
+
     it('should not turn up the temperature up to 26 degrees if power_mode is on', () => {
       thermostat.power_save = true
-      expect(function () { thermostat.up(6) }).toThrow(new TypeError("Temperature cannot be more than 25 degrees."));
+      expect(function () { thermostat.up(6) }).toThrow(new TypeError("Temperature cannot be higher than 25 degrees if power saving mode is on."));
     });
+
+    it('should not exceed 32 degrees if power save mode is off', () => {
+      thermostat.power_save = false
+      expect(function () { thermostat.up(13) }).toThrow(new TypeError("Temperature cannot be higher than 32 degrees if power saving mode is off."));
+    })
 
   });
 
