@@ -1,7 +1,7 @@
 # Week 6 - Thermostat Challenge
 ### Specification
 
-* Thermostat starts at 20 degrees
+* Thermostat starts at 20 degrees ✓
 * You can increase the temperature with an up function
 * You can decrease the temperature with a down function
 * The minimum temperature is 10 degrees
