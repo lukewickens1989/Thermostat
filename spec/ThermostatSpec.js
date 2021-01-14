@@ -56,6 +56,10 @@ describe("Thermostat", function(){
         expect(thermostat.current_temp).toEqual(15)
       });
 
+      it('shouldnt turn down the temperature if the temperature is 10 degrees', () => {
+        thermostat.current_temp = thermostat.min_temp
+        expect(function () { thermostat.down(1) }).toThrow(new TypeError("Temperature cannot be lower than 10 degrees."));
+      });
   });
   
 });
