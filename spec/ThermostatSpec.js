@@ -34,5 +34,28 @@ describe("Thermostat", function(){
     });
 
   });
+
+    describe('#down', () => {
+
+      beforeEach( () => {
+        thermostat.current_temp = thermostat.default_temp
+      });
+  
+      it('should turn down the temperature by passed in amount', () => {
+        thermostat.down(1)
+        expect(thermostat.current_temp).toEqual(19)
+      });
+  
+      it('should turn down the temperature by 2', () => {
+        thermostat.down(2)
+        expect(thermostat.current_temp).toEqual(18)
+      });
+  
+      it('should turn down the temperature by 5', () => {
+        thermostat.down(5)
+        expect(thermostat.current_temp).toEqual(15)
+      });
+
+  });
   
 });
