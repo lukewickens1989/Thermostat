@@ -7,6 +7,7 @@ class Thermostat {
     this.max_temp = 32;
     this.power_save_max_temp = 25;
     this.power_save = true;
+    this.energy_consumption = "Medium"
   }
 
   up(amount) {
@@ -36,6 +37,7 @@ class Thermostat {
     this.current_temp -= amount
     }
   }
+
   power_mode() {
     if (this.power_save == false) {
       this.power_save = true
@@ -43,4 +45,19 @@ class Thermostat {
       this.power_save = false
     }
   }
+
+  reset() {
+    this.current_temp = this.default_temp
+  }
+
+  energy_usage() {
+    if (this.current_temp < 18) {
+      this.energy_consumption = "Low"
+    } else if (this.current_temp >= 18 && this.current_temp <= 25) {
+      this.energy_consumption = "Medium"
+    } else {
+      this.energy_consumption = "High"
+    }
+  }
+
 }

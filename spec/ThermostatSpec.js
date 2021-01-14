@@ -3,6 +3,11 @@ describe("Thermostat", function(){
   let thermostat = new Thermostat
 
   describe('Instantiation', () => {
+
+    beforeEach( () => {
+      thermostat.reset()
+    });
+
     it('should make a new instanct of class', () => {
       expect(thermostat).toBeInstanceOf(Thermostat)
     })
@@ -10,7 +15,7 @@ describe("Thermostat", function(){
     it('should be initialized at 20 degrees', () => {
       expect(thermostat.default_temp).toEqual(20)
     })
-    
+
     // ISSUE WITH TEST RETURNING FALSE FOR NO REASON:
     // it('should be initialized with power_save on', () => {
     //   expect(thermostat.power_save).toEqual(true)
@@ -18,6 +23,10 @@ describe("Thermostat", function(){
 
     it('should have a maximum temp of 32 degrees', () => {
       expect(thermostat.max_temp).toEqual(32)
+    })
+
+    it('should have a defaulted energy usage of medium usage', () => {
+      expect(thermostat.energy_consumption).toEqual("Medium")
     })
   });
 
@@ -82,6 +91,11 @@ describe("Thermostat", function(){
   });
 
   describe("#power_mode", () => {
+
+    beforeEach( () => {
+      thermostat.power_save = true
+    });
+
     it("should change the power mode if it is true", () => {
       thermostat.power_mode()
       expect(thermostat.power_save).toEqual(false)
@@ -93,6 +107,40 @@ describe("Thermostat", function(){
       expect(thermostat.power_save).toEqual(true)
 
     });
+  });
+
+  describe("#reset", () => {
+    it("should reset the current temperature to the default temperature", () => {
+      thermostat.up(3)
+      thermostat.reset()
+      expect(thermostat.current_temp).toEqual(20)
+    })
+  });
+
+  describe('#energy_usage', () => {
+
+    beforeEach( () => {
+      thermostat.power_save = false
+      thermostat.reset()
+    });
+
+    it("should check the temperature and return an energy consumption of Low", () => {
+      thermostat.down(3)
+      thermostat.energy_usage()
+      expect(thermostat.energy_consumption).toEqual("Low")
+    })
+
+    it("should check the temperature and return an energy consumption of Medium", () => {
+      thermostat.up(1)
+      thermostat.energy_usage()
+      expect(thermostat.energy_consumption).toEqual("Medium")
+    })
+
+    it("should check the temperature and return an energy consumption of High", () => {
+      thermostat.up(8)
+      thermostat.energy_usage()
+      expect(thermostat.energy_consumption).toEqual("High")
+    })
   });
   
 });
